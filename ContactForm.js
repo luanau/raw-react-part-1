@@ -1,6 +1,26 @@
 var ContactForm = React.createClass({
   propTypes: {
-    contact: React.PropTypes.object.isRequired
+    contact: React.PropTypes.object.isRequired,
+    onChange: React.PropTypes.func.isRequired,
+  },
+
+  onNameChange: function (event) {
+    this.setState({name: event.target.value});
+    this.props.onChange(this.state);
+  },
+
+  onEmailChange: function (event) {
+    this.setState({email: event.target.value});
+    this.props.onChange(this.state);
+  },
+
+  onDescriptionChange: function (event) {
+    this.setState({description: event.target.value});
+    this.props.onChange(this.state);
+  },
+
+  getInitialState: function () {
+    return this.props.contact;
   },
 
   render: function() {
@@ -9,16 +29,19 @@ var ContactForm = React.createClass({
         React.createElement('input', {
           type: 'text',
           placeholder: 'Name (required)',
-          value: this.props.contact.name,
+          value: this.state.name,
+          onChange: this.onNameChange,
         }),
         React.createElement('input', {
           type: 'email',
           placeholder: 'Email',
-          value: this.props.contact.email,
+          value: this.state.email,
+          onChange: this.onEmailChange,
         }),
         React.createElement('textarea', {
           placeholder: 'Description',
-          value: this.props.contact.description,
+          value: this.state.description,
+          onChange: this.onDescriptionChange,
         }),
         React.createElement('button', {type: 'submit'}, "Add Contact")
       )
